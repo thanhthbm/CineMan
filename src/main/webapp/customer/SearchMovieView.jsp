@@ -5,6 +5,7 @@
   Time: 8:41 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -16,50 +17,45 @@
 
 <body>
     <div class="d-flex justify-content-center align-items-center flex-column">
+        <h1 class="mb-4">Hệ thống rạp chiếu phim Cineman</h1>
+        <hr/>
         <h1>Tìm kiếm phim</h1>
-        <form class="d-flex justify-content-center mb-4" method="get" action="${pageContext.request.contextPath}/search">
+        <form class="d-flex justify-content-center mb-4" method="get" action="${pageContext.request.contextPath}/movies">
             <div class="input-group" style="max-width: 900px;">
-                <input type="text" name="q" class="form-control" placeholder="Nhập tên phim" />
+                <input type="hidden" name="action" value="search">
+                <input type="text" name="name" class="form-control" placeholder="Nhập tên phim" value="${param.name}" />
                 <button type="submit" class="btn btn-primary">Tìm kiếm</button>
             </div>
         </form>
 
-        <div>
-            <table class="table">
+        <c:if test="${not empty listMovie}">
+            <table class="table table-striped">
                 <thead>
-                    <tr>
-                        <th scope="col">STT</th>
-                        <th scope="col">Tên phim</th>
-                        <th scope="col"></th>
-                    </tr>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên phim</th>
+                    <th>Xem chi tiết</th>
+                </tr>
                 </thead>
                 <tbody>
+                <c:forEach var="movie" items="${listMovie}" varStatus="status">
                     <tr>
-                        <th scope="row">1</th>
-                        <td>Đất rừng phương Nam</td>
+                        <td>${status.count}</td>
+                        <td>${movie.name}</td>
                         <td>
-                            <a href="${pageContext.request.contextPath}/MovieDetailView.jsp?id=1"
-                                    class="btn btn-primary btn-sm"
+                            <a href="${pageContext.request.contextPath}/movies?action=details&id=${movie.id}"
+                               class="btn btn-info btn-sm">
                                 Xem chi tiết
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Doraemon: Nobita và Vùng đất lý tưởng</td>
-                        <td>
-                            <a      href="${pageContext.request.contextPath}/MovieDetailView.jsp?id=1"
-                                    class="btn btn-primary btn-sm"
-                                Xem chi tiết
-                            </a>
-                        </td>
-                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
-        </div>
+        </c:if>
 
         <div>
-            <button class="btn btn-danger">Quay lại</button>
+            <a class="btn btn-danger" href="${pageContext.request.contextPath}/home">Quay lại</a>
         </div>
     </div>
 

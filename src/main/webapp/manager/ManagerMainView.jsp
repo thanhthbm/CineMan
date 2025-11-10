@@ -13,8 +13,10 @@
 </head>
 <body>
 <div class="d-flex justify-content-center align-items-center flex-column">
+    <h1 class="text-center mb-4">Hệ thống rạp chiếu phim Cineman</h1>
+    <hr/>
     <h1 class="mb-4">Giao diện chính của quản lý</h1>
-    <button type="button" class="btn btn-primary">Xem thống kê</button>
+    <a type="button" class="btn btn-primary" href="${pageContext.request.contextPath}/viewStats">Xem thống kê</a>
 </div>
 
 
